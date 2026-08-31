@@ -39,23 +39,19 @@ const moreGames = [
 ];
 ---
 
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22><text y=%2226%22 font-size=%2228%22>🍊</text></svg>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OrangeArcade ✨ Cute Games Station</title>
-    <meta name="description" content="Play cute orange themed relaxing arcade games online directly in your browser!" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍊</text></svg>" />
-    
-    <!-- Optimized Font Loading -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Quicksand:wght@600;700&display=swap" media="print" onload="this.media='all'" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
   </head>
 
   <body>
-    <!-- 🍊 Navbar -->
+    <!-- 🍊 Top Navigation -->
     <header class="navbar">
       <div class="logo">
         <span class="logo-icon">🍊</span>
@@ -73,14 +69,14 @@ const moreGames = [
         <div class="section-badge">✨ Featured Game of the Day 🎮</div>
         <h1 class="game-title">{featuredGame.title}</h1>
 
-        <div class="iframe-wrapper" id="gameContainer">
-          <!-- Game Cover / Facade for Fast Mobile Load -->
-          <div class="game-poster" id="gamePoster">
-            <div class="poster-icon">🎮</div>
-            <p class="poster-text">Ready to Play?</p>
-            <button class="start-btn" id="startBtn" aria-label="Start Game">
-              ▶️ Play Game Now
-            </button>
+        <div class="iframe-wrapper">
+          <div class="screen-frame">
+            <iframe 
+              src={featuredGame.embedUrl}
+              title={featuredGame.title}
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
           </div>
         </div>
 
@@ -103,53 +99,37 @@ const moreGames = [
 
         <div class="games-grid">
           {moreGames.map(game => (
-            <article class="game-card">
-              <span class="card-badge">{game.tag}</span>
+            <div class="game-card">
+              <div class="card-badge">{game.tag}</div>
               <div class="card-icon">{game.emoji}</div>
               <h3 class="card-title">{game.title}</h3>
               <p class="card-cat">{game.category}</p>
               <div class="card-bottom">
                 <span class="rating">{game.rating}</span>
-                <button class="play-btn" aria-label={`Play ${game.title}`}>Play 🕹️</button>
+                <button class="play-btn">Play Now 🕹️</button>
               </div>
-            </article>
+            </div>
           ))}
         </div>
       </section>
     </main>
 
-    <!-- 🌸 Footer -->
+    <!-- 🌸 Cute Footer -->
     <footer>
       <p>Made with 🧡 & Astro JS | Cute Gaming World ✨🐾</p>
     </footer>
-
-    <!-- 🚀 Instant Load Script for Game -->
-    <script define:vars={{ embedUrl: featuredGame.embedUrl, gameTitle: featuredGame.title }}>
-      const startBtn = document.getElementById('startBtn');
-      const gameContainer = document.getElementById('gameContainer');
-
-      startBtn.addEventListener('click', () => {
-        gameContainer.innerHTML = `
-          <iframe 
-            src="${embedUrl}" 
-            title="${gameTitle}" 
-            allowfullscreen 
-            class="active-iframe"
-          ></iframe>
-        `;
-      });
-    </script>
   </body>
 </html>
 
 <style>
   :root {
-    --primary-orange: #d95300;
-    --soft-orange: #ff7b25;
-    --light-peach: #fff7f2;
+    --primary-orange: #ff7b25;
+    --soft-orange: #ffa834;
+    --light-peach: #fff4ec;
     --card-bg: #ffffff;
-    --text-dark: #3a2210;
-    --border-orange: #ffd8bf;
+    --text-dark: #4a2e18;
+    --shadow-cute: 0px 10px 25px rgba(255, 123, 37, 0.18);
+    --border-orange: #ffd4b2;
   }
 
   * {
@@ -159,7 +139,7 @@ const moreGames = [
   }
 
   body {
-    font-family: 'Quicksand', system-ui, sans-serif;
+    font-family: 'Quicksand', sans-serif;
     background-color: var(--light-peach);
     color: var(--text-dark);
     line-height: 1.5;
@@ -170,23 +150,24 @@ const moreGames = [
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 1.5rem;
-    max-width: 1000px;
+    padding: 1.2rem 2rem;
+    max-width: 1100px;
     margin: 0 auto;
   }
 
   .logo {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    font-family: 'Fredoka', system-ui, sans-serif;
-    font-size: 1.5rem;
+    gap: 0.5rem;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.6rem;
     font-weight: 700;
     color: var(--primary-orange);
   }
 
   .logo-icon {
-    font-size: 1.8rem;
+    font-size: 2rem;
+    animation: bounce 2s infinite ease-in-out;
   }
 
   .highlight {
@@ -195,38 +176,44 @@ const moreGames = [
 
   .nav-links {
     display: flex;
-    gap: 0.8rem;
+    gap: 1rem;
   }
 
   .nav-btn {
     text-decoration: none;
     font-weight: 700;
     color: var(--text-dark);
-    padding: 0.6rem 1rem;
+    padding: 0.5rem 1.2rem;
     border-radius: 99px;
-    font-size: 0.95rem;
+    transition: 0.3s ease;
   }
 
   .cute-btn {
     background: var(--primary-orange);
-    color: #fff;
+    color: white;
+    box-shadow: var(--shadow-cute);
   }
 
-  /* 📦 Main Container */
+  .cute-btn:hover {
+    transform: translateY(-2px);
+    background: var(--soft-orange);
+  }
+
+  /* 📦 Layout */
   .container {
-    max-width: 900px;
-    margin: 1rem auto 3rem auto;
+    max-width: 1000px;
+    margin: 1.5rem auto 3rem auto;
     padding: 0 1rem;
   }
 
-  /* 🎮 Featured Game Box */
+  /* 🎮 Featured Game */
   .game-showcase {
     background: var(--card-bg);
-    border-radius: 24px;
-    padding: 1.5rem;
+    border-radius: 28px;
+    padding: 2rem;
     text-align: center;
-    border: 2px solid var(--border-orange);
-    box-shadow: 0px 8px 24px rgba(217, 83, 0, 0.08);
+    border: 3px solid var(--border-orange);
+    box-shadow: var(--shadow-cute);
   }
 
   .section-badge {
@@ -234,166 +221,135 @@ const moreGames = [
     background: #ffe3cd;
     color: var(--primary-orange);
     font-weight: 700;
-    padding: 0.3rem 0.9rem;
-    border-radius: 16px;
-    font-size: 0.85rem;
-    margin-bottom: 0.6rem;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
   }
 
   .game-title {
-    font-family: 'Fredoka', system-ui, sans-serif;
-    font-size: 1.7rem;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 2rem;
     color: var(--primary-orange);
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.5rem;
   }
 
-  /* 🕹️ Fast Facade / Poster Screen */
   .iframe-wrapper {
     position: relative;
     width: 100%;
-    max-width: 760px;
+    max-width: 800px;
     margin: 0 auto;
     aspect-ratio: 16 / 9;
-    border-radius: 18px;
+    border-radius: 20px;
     overflow: hidden;
-    background: #2b180d;
-    border: 4px solid var(--soft-orange);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: #000;
+    border: 6px solid var(--soft-orange);
+    box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.15);
   }
 
-  .game-poster {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.8rem;
-  }
-
-  .poster-icon {
-    font-size: 3rem;
-  }
-
-  .poster-text {
-    color: #ffd8bf;
-    font-weight: 700;
-    font-size: 1.1rem;
-  }
-
-  .start-btn {
-    background: var(--soft-orange);
-    color: #ffffff;
-    border: none;
-    padding: 0.8rem 1.8rem;
-    font-size: 1.1rem;
-    font-weight: 700;
-    border-radius: 99px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(255, 123, 37, 0.4);
-    transition: transform 0.15s ease;
-  }
-
-  .start-btn:active {
-    transform: scale(0.96);
-  }
-
-  :global(.active-iframe) {
+  .screen-frame, iframe {
     width: 100%;
     height: 100%;
     border: none;
   }
 
   .game-info {
-    margin-top: 1.2rem;
+    margin-top: 1.5rem;
   }
 
   .desc {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 600;
-    color: #55341c;
-    margin-bottom: 0.8rem;
+    color: #6d4b2e;
+    margin-bottom: 1rem;
   }
 
   .tags {
     display: flex;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0.6rem;
   }
 
   .tag-pill {
     background: #fff0e2;
     color: var(--primary-orange);
-    padding: 0.2rem 0.7rem;
-    border-radius: 10px;
-    font-size: 0.8rem;
+    padding: 0.2rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
     font-weight: 700;
   }
 
-  /* 🕹️ More Games Grid */
+  /* 🕹️ More Games Section */
   .more-games-section {
-    margin-top: 2.5rem;
+    margin-top: 3.5rem;
   }
 
   .section-header {
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
   }
 
   .section-header h2 {
-    font-family: 'Fredoka', system-ui, sans-serif;
-    font-size: 1.6rem;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.8rem;
     color: var(--primary-orange);
   }
 
   .section-header p {
-    color: #6e4b30;
+    color: #8c6a4d;
     font-weight: 600;
-    font-size: 0.95rem;
   }
 
   .games-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.2rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
   }
 
   .game-card {
     background: var(--card-bg);
-    border: 1.5px solid var(--border-orange);
-    border-radius: 18px;
-    padding: 1.2rem;
+    border: 2px solid var(--border-orange);
+    border-radius: 20px;
+    padding: 1.5rem;
     text-align: center;
     position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0px 5px 15px rgba(255, 123, 37, 0.08);
+  }
+
+  .game-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-cute);
   }
 
   .card-badge {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 12px;
+    right: 12px;
     background: #ffe6d4;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     font-weight: 700;
     padding: 0.2rem 0.5rem;
-    border-radius: 6px;
+    border-radius: 8px;
     color: var(--primary-orange);
   }
 
   .card-icon {
-    font-size: 2.6rem;
-    margin: 0.5rem 0;
+    font-size: 3rem;
+    margin: 0.8rem 0;
   }
 
   .card-title {
-    font-family: 'Fredoka', system-ui, sans-serif;
-    font-size: 1.1rem;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.2rem;
     margin-bottom: 0.2rem;
   }
 
   .card-cat {
-    font-size: 0.8rem;
-    color: #8c6a4d;
+    font-size: 0.85rem;
+    color: #9c7b60;
     font-weight: 600;
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
   }
 
   .card-bottom {
@@ -405,36 +361,46 @@ const moreGames = [
   .rating {
     font-weight: 700;
     font-size: 0.85rem;
-    color: #d95300;
+    color: #ff8c00;
   }
 
   .play-btn {
     background: var(--primary-orange);
     color: #fff;
     border: none;
+    font-family: 'Quicksand', sans-serif;
     font-weight: 700;
-    padding: 0.45rem 0.9rem;
-    border-radius: 10px;
+    padding: 0.4rem 0.8rem;
+    border-radius: 12px;
     cursor: pointer;
-    min-height: 40px; /* Mobile touch target optimization */
+    transition: 0.2s;
+  }
+
+  .play-btn:hover {
+    background: var(--soft-orange);
   }
 
   /* 🌸 Footer */
   footer {
     text-align: center;
-    padding: 1.5rem;
+    padding: 2rem;
     font-weight: 600;
-    font-size: 0.9rem;
-    color: #6e4b30;
+    color: #8c6a4d;
     background: #ffede0;
+    margin-top: 2rem;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
   }
 
   @media (max-width: 600px) {
     .game-title {
-      font-size: 1.3rem;
+      font-size: 1.5rem;
     }
     .game-showcase {
-      padding: 1rem;
+      padding: 1.2rem;
     }
   }
 </style>
