@@ -1,0 +1,408 @@
+---
+// src/pages/index.astro
+const featuredGame = {
+  title: "🍊 Flappy Orange Adventure 🐥",
+  embedUrl: "https://itch.io/embed-upload/1434444?color=ffaa5a", // Demo game iframe url (aap apna URL daal sakte hain)
+  description: "Cute little bird ko obstacles se bacha kar maximum score banayein! ✨",
+  tags: ["#Cute", "#Arcade", "#Relaxing"]
+};
+
+const moreGames = [
+  {
+    title: "Cat Bakery Tycoon 🐾",
+    category: "Simulation",
+    emoji: "🐱🥐",
+    rating: "⭐ 4.9",
+    tag: "Trending 🔥"
+  },
+  {
+    title: "Cozy Pixel Farm 🌾",
+    category: "Casual",
+    emoji: "🐥🥕",
+    rating: "⭐ 4.8",
+    tag: "Cute 💖"
+  },
+  {
+    title: "Sunny Space Jump 🚀",
+    category: "Action",
+    emoji: "🌟🍊",
+    rating: "⭐ 4.7",
+    tag: "Popular 🎉"
+  },
+  {
+    title: "Bubble Pop Party 🫧",
+    category: "Puzzle",
+    emoji: "🎈✨",
+    rating: "⭐ 4.9",
+    tag: "New 🆕"
+  }
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22><text y=%2226%22 font-size=%2228%22>🍊</text></svg>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OrangeArcade ✨ Cute Games Station</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+    <!-- 🍊 Top Navigation -->
+    <header class="navbar">
+      <div class="logo">
+        <span class="logo-icon">🍊</span>
+        <span class="logo-text">Orange<span class="highlight">Arcade</span></span>
+      </div>
+      <nav class="nav-links">
+        <a href="#games" class="nav-btn">🎮 All Games</a>
+        <a href="#about" class="nav-btn cute-btn">✨ Play Daily</a>
+      </nav>
+    </header>
+
+    <main class="container">
+      <!-- 🎮 Hero / Active Game Section -->
+      <section class="game-showcase">
+        <div class="section-badge">✨ Featured Game of the Day 🎮</div>
+        <h1 class="game-title">{featuredGame.title}</h1>
+
+        <div class="iframe-wrapper">
+          <div class="screen-frame">
+            <!-- Iframe Game Player -->
+            <iframe 
+              src={featuredGame.embedUrl}
+              title={featuredGame.title}
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+
+        <div class="game-info">
+          <p class="desc">{featuredGame.description}</p>
+          <div class="tags">
+            {featuredGame.tags.map(tag => (
+              <span class="tag-pill">{tag}</span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- 🕹️ More Games Grid Section -->
+      <section id="games" class="more-games-section">
+        <div class="section-header">
+          <h2>🐾 More Cute Games 🍊</h2>
+          <p>Apna next favorite game choose karein!</p>
+        </div>
+
+        <div class="games-grid">
+          {moreGames.map(game => (
+            <div class="game-card">
+              <div class="card-badge">{game.tag}</div>
+              <div class="card-icon">{game.emoji}</div>
+              <h3 class="card-title">{game.title}</h3>
+              <p class="card-cat">{game.category}</p>
+              <div class="card-bottom">
+                <span class="rating">{game.rating}</span>
+                <button class="play-btn">Play Now 🕹️</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </main>
+
+    <!-- 🌸 Cute Footer -->
+    <footer>
+      <p>Made with 🧡 & Astro JS | Cute Gaming World ✨🐾</p>
+    </footer>
+  </body>
+</html>
+
+<style>
+  :root {
+    --primary-orange: #ff7b25;
+    --soft-orange: #ffa834;
+    --light-peach: #fff4ec;
+    --card-bg: #ffffff;
+    --text-dark: #4a2e18;
+    --shadow-cute: 0px 10px 25px rgba(255, 123, 37, 0.18);
+    --border-orange: #ffd4b2;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Quicksand', sans-serif;
+    background-color: var(--light-peach);
+    color: var(--text-dark);
+    line-height: 1.5;
+  }
+
+  /* 🍊 Navbar */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--primary-orange);
+  }
+
+  .logo-icon {
+    font-size: 2rem;
+    animation: bounce 2s infinite ease-in-out;
+  }
+
+  .highlight {
+    color: var(--soft-orange);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .nav-btn {
+    text-decoration: none;
+    font-weight: 700;
+    color: var(--text-dark);
+    padding: 0.5rem 1.2rem;
+    border-radius: 99px;
+    transition: 0.3s ease;
+  }
+
+  .cute-btn {
+    background: var(--primary-orange);
+    color: white;
+    box-shadow: var(--shadow-cute);
+  }
+
+  .cute-btn:hover {
+    transform: translateY(-2px);
+    background: var(--soft-orange);
+  }
+
+  /* 📦 Layout */
+  .container {
+    max-width: 1000px;
+    margin: 1.5rem auto 3rem auto;
+    padding: 0 1rem;
+  }
+
+  /* 🎮 Featured Game / Iframe */
+  .game-showcase {
+    background: var(--card-bg);
+    border-radius: 28px;
+    padding: 2rem;
+    text-align: center;
+    border: 3px solid var(--border-orange);
+    box-shadow: var(--shadow-cute);
+  }
+
+  .section-badge {
+    display: inline-block;
+    background: #ffe3cd;
+    color: var(--primary-orange);
+    font-weight: 700;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .game-title {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 2rem;
+    color: var(--primary-orange);
+    margin-bottom: 1.5rem;
+  }
+
+  .iframe-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #000;
+    border: 6px solid var(--soft-orange);
+    box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .screen-frame, iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .game-info {
+    margin-top: 1.5rem;
+  }
+
+  .desc {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #6d4b2e;
+    margin-bottom: 1rem;
+  }
+
+  .tags {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+
+  .tag-pill {
+    background: #fff0e2;
+    color: var(--primary-orange);
+    padding: 0.2rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  /* 🕹️ More Games Section */
+  .more-games-section {
+    margin-top: 3.5rem;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .section-header h2 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.8rem;
+    color: var(--primary-orange);
+  }
+
+  .section-header p {
+    color: #8c6a4d;
+    font-weight: 600;
+  }
+
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .game-card {
+    background: var(--card-bg);
+    border: 2px solid var(--border-orange);
+    border-radius: 20px;
+    padding: 1.5rem;
+    text-align: center;
+    position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0px 5px 15px rgba(255, 123, 37, 0.08);
+  }
+
+  .game-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-cute);
+  }
+
+  .card-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #ffe6d4;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 8px;
+    color: var(--primary-orange);
+  }
+
+  .card-icon {
+    font-size: 3rem;
+    margin: 0.8rem 0;
+  }
+
+  .card-title {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .card-cat {
+    font-size: 0.85rem;
+    color: #9c7b60;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+  }
+
+  .card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .rating {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #ff8c00;
+  }
+
+  .play-btn {
+    background: var(--primary-orange);
+    color: #fff;
+    border: none;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    padding: 0.4rem 0.8rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .play-btn:hover {
+    background: var(--soft-orange);
+  }
+
+  /* 🌸 Footer */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-weight: 600;
+    color: #8c6a4d;
+    background: #ffede0;
+    margin-top: 2rem;
+  }
+
+  /* ✨ Animations */
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  @media (max-width: 600px) {
+    .game-title {
+      font-size: 1.5rem;
+    }
+    .game-showcase {
+      padding: 1.2rem;
+    }
+  }
+</style>
