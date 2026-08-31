@@ -2,8 +2,9 @@
 // src/pages/index.astro
 const featuredGame = {
   title: "🏎️ PolyTrack 3D Racer 🏁",
-  embedUrl: "https://polytrackonline.gitlab.io/poly-track/",
-  description: "Fast-paced low-poly track racing game! Apni car drive karein, stunts karein aur best time record banayein! 🚗💨✨",
+  // Working PolyTrack Embed URL:
+  embedUrl: "https://polytrack-online.github.io/", 
+  description: "Fast-paced low-poly track racing game! Apni car drive karein aur best speed record banayein! 🚗💨✨",
   tags: ["#Racing", "#3DGame", "#PolyTrack", "#Fun"]
 };
 
@@ -48,7 +49,6 @@ const moreGames = [
     <meta name="description" content="Play PolyTrack 3D racing game online for free on OrangeArcade!" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍊</text></svg>" />
     
-    <!-- Optimized Font Loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Quicksand:wght@600;700&display=swap" media="print" onload="this.media='all'" />
@@ -68,20 +68,19 @@ const moreGames = [
     </header>
 
     <main class="container">
-      <!-- 🎮 Hero / PolyTrack Game Section -->
+      <!-- 🎮 Featured PolyTrack Game -->
       <section class="game-showcase">
         <div class="section-badge">✨ Featured Game 🏎️</div>
         <h1 class="game-title">{featuredGame.title}</h1>
 
-        <div class="iframe-wrapper" id="gameContainer">
-          <!-- Game Cover / Facade for Fast Mobile Load -->
-          <div class="game-poster" id="gamePoster">
-            <div class="poster-icon">🏎️💨</div>
-            <p class="poster-text">Ready to Race on PolyTrack?</p>
-            <button class="start-btn" id="startBtn" aria-label="Start PolyTrack Game">
-              ▶️ Play Game Now
-            </button>
-          </div>
+        <div class="iframe-wrapper">
+          <iframe 
+            src={featuredGame.embedUrl}
+            title={featuredGame.title}
+            allow="autoplay; fullscreen; pointer-lock" 
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
         </div>
 
         <div class="game-info">
@@ -94,7 +93,7 @@ const moreGames = [
         </div>
       </section>
 
-      <!-- 🕹️ More Games Section -->
+      <!-- 🕹️ More Games -->
       <section id="games" class="more-games-section">
         <div class="section-header">
           <h2>🐾 More Cute Games 🍊</h2>
@@ -122,24 +121,6 @@ const moreGames = [
     <footer>
       <p>Made with 🧡 & Astro JS | PolyTrack Arcade World ✨🐾</p>
     </footer>
-
-    <!-- 🚀 Instant Load Script for Game -->
-    <script define:vars={{ embedUrl: featuredGame.embedUrl, gameTitle: featuredGame.title }}>
-      const startBtn = document.getElementById('startBtn');
-      const gameContainer = document.getElementById('gameContainer');
-
-      startBtn.addEventListener('click', () => {
-        gameContainer.innerHTML = `
-          <iframe 
-            src="${embedUrl}" 
-            title="${gameTitle}" 
-            allow="autoplay; fullscreen; pointer-lock" 
-            allowfullscreen 
-            class="active-iframe"
-          ></iframe>
-        `;
-      });
-    </script>
   </body>
 </html>
 
@@ -166,7 +147,6 @@ const moreGames = [
     line-height: 1.5;
   }
 
-  /* 🍊 Navbar */
   .navbar {
     display: flex;
     justify-content: space-between;
@@ -213,14 +193,12 @@ const moreGames = [
     color: #fff;
   }
 
-  /* 📦 Layout */
   .container {
     max-width: 900px;
     margin: 1rem auto 3rem auto;
     padding: 0 1rem;
   }
 
-  /* 🎮 Featured Game Box */
   .game-showcase {
     background: var(--card-bg);
     border-radius: 24px;
@@ -248,7 +226,6 @@ const moreGames = [
     margin-bottom: 1.2rem;
   }
 
-  /* 🕹️ Fast Facade Poster */
   .iframe-wrapper {
     position: relative;
     width: 100%;
@@ -257,51 +234,15 @@ const moreGames = [
     aspect-ratio: 16 / 9;
     border-radius: 18px;
     overflow: hidden;
-    background: #1e130c;
+    background: #000;
     border: 4px solid var(--soft-orange);
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
-  .game-poster {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.8rem;
-  }
-
-  .poster-icon {
-    font-size: 3rem;
-  }
-
-  .poster-text {
-    color: #ffd8bf;
-    font-weight: 700;
-    font-size: 1.1rem;
-  }
-
-  .start-btn {
-    background: var(--soft-orange);
-    color: #ffffff;
-    border: none;
-    padding: 0.8rem 1.8rem;
-    font-size: 1.1rem;
-    font-weight: 700;
-    border-radius: 99px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(255, 123, 37, 0.4);
-    transition: transform 0.15s ease;
-  }
-
-  .start-btn:active {
-    transform: scale(0.96);
-  }
-
-  :global(.active-iframe) {
+  iframe {
     width: 100%;
     height: 100%;
     border: none;
+    display: block;
   }
 
   .game-info {
@@ -331,7 +272,6 @@ const moreGames = [
     font-weight: 700;
   }
 
-  /* 🕹️ More Games Grid */
   .more-games-section {
     margin-top: 2.5rem;
   }
@@ -421,7 +361,6 @@ const moreGames = [
     min-height: 40px;
   }
 
-  /* 🌸 Footer */
   footer {
     text-align: center;
     padding: 1.5rem;
