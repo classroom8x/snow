@@ -2,7 +2,7 @@
 // src/pages/index.astro
 const featuredGame = {
   title: "🍊 Flappy Orange Adventure 🐥",
-  embedUrl: "https://itch.io/embed-upload/1434444?color=ffaa5a", // Demo game iframe url (aap apna URL daal sakte hain)
+  embedUrl: "https://itch.io/embed-upload/1434444?color=ffaa5a",
   description: "Cute little bird ko obstacles se bacha kar maximum score banayein! ✨",
   tags: ["#Cute", "#Arcade", "#Relaxing"]
 };
@@ -59,7 +59,7 @@ const moreGames = [
       </div>
       <nav class="nav-links">
         <a href="#games" class="nav-btn">🎮 All Games</a>
-        <a href="#about" class="nav-btn cute-btn">✨ Play Daily</a>
+        <a href="#games" class="nav-btn cute-btn">✨ Play Daily</a>
       </nav>
     </header>
 
@@ -71,7 +71,6 @@ const moreGames = [
 
         <div class="iframe-wrapper">
           <div class="screen-frame">
-            <!-- Iframe Game Player -->
             <iframe 
               src={featuredGame.embedUrl}
               title={featuredGame.title}
@@ -151,7 +150,7 @@ const moreGames = [
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 1.2rem 2rem;
     max-width: 1100px;
     margin: 0 auto;
   }
@@ -207,7 +206,7 @@ const moreGames = [
     padding: 0 1rem;
   }
 
-  /* 🎮 Featured Game / Iframe */
+  /* 🎮 Featured Game */
   .game-showcase {
     background: var(--card-bg);
     border-radius: 28px;
@@ -391,7 +390,6 @@ const moreGames = [
     margin-top: 2rem;
   }
 
-  /* ✨ Animations */
   @keyframes bounce {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-5px); }
